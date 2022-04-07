@@ -292,6 +292,9 @@ public class Good {
         }
         return b_array;
     }
+    public static final String GZIP_ENCODE_UTF_8 = "UTF-8";
+//    public static final String GZIP_ENCODE_UTF_8 = "UTF-8";
+//    public static final String GZIP_ENCODE_UTF_8 = "ASCII";
     public static byte[] compress(String str, String encoding) {
         if (str == null || str.length() == 0) {
             return null;
@@ -327,6 +330,15 @@ public class Good {
 
         return out.toByteArray();
     }
+    public static String hex(byte[] bytes) {
+        StringBuilder result = new StringBuilder();
+        for (byte aByte : bytes) {
+            result.append(String.format("%02x", aByte));
+            // upper case
+            // result.append(String.format("%02X", aByte));
+        }
+        return result.toString();
+    }
     public static void main(String[] args) throws IOException {
         System.out.println("fuck");
         byte[] fuck=uncompress(charArrayToByteArray(aa));
@@ -338,6 +350,14 @@ public class Good {
         myWriter.write(dada);
         myWriter.close();
 
-
+        byte[] fuck2=compress(dada,GZIP_ENCODE_UTF_8);
+        System.out.println(fuck2.length);
+        System.out.println(aa.length);
+        byte[] fuck3=uncompress(fuck2);
+        byte[] fuck4=compress(new String(fuck3),GZIP_ENCODE_UTF_8);
+        System.out.println(fuck4.length);
+        System.out.println( hex(fuck2));
     }
+
+
 }
